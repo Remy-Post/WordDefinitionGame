@@ -29,10 +29,12 @@ public class API {
      */
     protected String fetch(String urlStr) throws IOException {
         URL url = new URL(urlStr);
+
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setConnectTimeout(2000);
         conn.setReadTimeout(2000);
+
 
         int code = conn.getResponseCode();
 
@@ -43,15 +45,6 @@ public class API {
             String line;
             while ((line = br.readLine()) != null) sb.append(line);
             return sb.toString();
-        }
-    }
-
-    public String getWord(){
-        try {
-            return fetch(urls.get("word"));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
         }
     }
 }

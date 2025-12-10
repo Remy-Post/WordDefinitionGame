@@ -21,7 +21,7 @@ public class DictionairyAPI extends API{
         //Use the resuable private method to fetch the data
         try {
             jsonResponse = super.fetch(
-                    super.urls.get("dictionary") + word //Gets the api and fetch from Parent class
+                    super.urls.get("definition") + word //Gets the api and fetch from Parent class
             );
         }
         catch (Exception e) {
@@ -35,21 +35,21 @@ public class DictionairyAPI extends API{
 
             //Drilling concept, of URLs
             JsonObject entry = jsonObj.get(0).getAsJsonObject();
-            JsonObject meanings = entry.get("meanings").getAsJsonArray().get(0).getAsJsonObject();
+            JsonArray meanings = entry.get("meanings").getAsJsonArray();
 
             //As a word can have multiple meanings, we need to loop through them
             for (int j = 0; j < meanings.size(); j++){
                 //For Each Meaning
-                JsonObject meaning = meanings.getAsJsonArray().get(j).getAsJsonObject();
-                JsonObject defs = meaning.get("definitions").getAsJsonArray().get(0).getAsJsonObject();
+                JsonObject meaning = meanings.get(j).getAsJsonObject();
+                JsonArray defs = meaning.get("definitions").getAsJsonArray();
 
                 //Get partOfSpeech
                 String partOfSpeech = meaning.get("partOfSpeech").getAsString();
-                definitions.put(partOfSpeech, new ArrayList<>());
+                definitions.putIfAbsent(partOfSpeech, new ArrayList<>());
 
                 //loop throw each meaning
                 for(int k = 0; k < defs.size(); k++){
-                    JsonObject def = defs.getAsJsonArray().get(k).getAsJsonObject();
+                    JsonObject def = defs.get(k).getAsJsonObject();
 
                     String definition = def.get("definition").getAsString();
                     definitions.get(partOfSpeech).add(definition);

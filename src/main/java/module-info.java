@@ -5,6 +5,8 @@ module ca.additional.practice.javafx.worddefinitionsgame {
     requires org.kordamp.bootstrapfx.core;
 
     requires com.google.gson;
+    requires java.compiler;
+    requires java.desktop;
 
     opens ca.additional.practice.javafx.worddefinitionsgame to javafx.fxml, com.google.gson;
     exports ca.additional.practice.javafx.worddefinitionsgame;
