@@ -7,7 +7,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
-import java.awt.dnd.InvalidDnDOperationException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -27,7 +26,7 @@ public class Controller {
     private Label d3;
 
     @FXML
-    private ArrayList<Label> definitionsLabels;
+    private ArrayList<Label> definitionsLabels = new ArrayList<>();
 
     @FXML
     private AnchorPane layout;
@@ -54,7 +53,7 @@ public class Controller {
 
     //-------- Start of controller;
     @FXML
-    private void initialize() {
+    public void initialize() {
         //Creating class instances
         wordAPI = new WordAPI();
         dictionairyAPI = new DictionairyAPI();
