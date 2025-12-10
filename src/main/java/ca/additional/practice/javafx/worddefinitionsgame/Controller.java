@@ -111,7 +111,7 @@ public class Controller {
        Label l = (Label) event.getSource();
 
        currentPosition[0] = event.getSceneX();
-       orginalPosition[1] = event.getSceneY();
+       currentPosition[1] = event.getSceneY();
    }
 
    private void setMouseReleased(MouseEvent event){
