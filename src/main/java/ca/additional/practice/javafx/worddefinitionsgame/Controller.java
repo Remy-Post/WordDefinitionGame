@@ -35,7 +35,7 @@ public class Controller {
     private Label wordLabel, wordType;
 
     @FXML
-    void NextWord(ActionEvent event) {
+    private void NextWord(ActionEvent event) {
 
     }
 
@@ -88,19 +88,24 @@ public class Controller {
 
             wordLabel.setText(m.getWord());
         }
+
+        game();
     }
 
     // HELPER FUNCTIONS
    public void game(){
+       System.out.println("Game");
         for(Label l : definitionsLabels){
             l.setText(m.getDefinition());
             l.setOnMousePressed(this::setMousePressed);
             l.setOnMouseDragged(this::setMouseDragged);
             l.setOnMouseReleased(this::setMouseReleased);
+            System.out.println("Label added");
         }
    }
 
    private void setMousePressed(MouseEvent event){
+       System.out.println("Pressed");
         Label l = (Label) event.getSource();
 
        orginalPosition[0] = l.getLayoutX();
@@ -111,11 +116,15 @@ public class Controller {
        Label l = (Label) event.getSource();
 
        currentPosition[0] = event.getSceneX();
-       orginalPosition[1] = event.getSceneY();
+       currentPosition[1] = event.getSceneY();
+
+       l.setLayoutX(currentPosition[0]);
+       l.setLayoutY(currentPosition[1]);
    }
 
    private void setMouseReleased(MouseEvent event){
        Label l = (Label) event.getSource();
+       System.out.println("Released");
    }
    
 }

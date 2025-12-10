@@ -36,31 +36,30 @@ public class Model {
         if (definitions == null || definitions.isEmpty()) {
             return "No definitions found.";
         }
-        
+
         // 1. Get all keys (Word Types) into a list
         List<String> keys = new ArrayList<>(definitions.keySet());
-        
+
         // 2. Pick a random Key
         String randomKey = keys.get(random.nextInt(keys.size()));
-        
+
         // 3. Get the list of definitions for that key
         ArrayList<String> definitionList = definitions.get(randomKey);
-        
+
         // 4. Pick a random definition from that list
         if (definitionList != null && !definitionList.isEmpty()) {
             return definitionList.get(random.nextInt(definitionList.size()));
         }
-        
+
         return "No definition available.";
     }
 
     public void setDefinitions(Map<String, ArrayList<String>> definitions) {
         this.definitions = definitions;
     }
-    //endregion
-
-
-
-    //endregion
-
 }
+    //endregion
+
+
+
+    //endregion

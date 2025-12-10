@@ -14,7 +14,7 @@ public class WordAPI extends API{
     
     public String getWord(){
         try {
-            jsonResponse = super.fetch(urls.get("word"));
+            jsonResponse = super.fetch(super.urls.get("word"));
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -39,3 +39,4 @@ public class WordAPI extends API{
         return jsonResponse;
     }
 }
+
