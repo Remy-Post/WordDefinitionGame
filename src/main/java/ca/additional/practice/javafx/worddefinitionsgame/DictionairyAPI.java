@@ -1,3 +1,17 @@
+/*
+ * File: DictionairyAPI.java
+ * Purpose: API client for fetching word definitions from the Dictionary API.
+ *          Parses JSON responses to extract definitions organized by part of speech.
+ * 
+ * Global Variables:
+ *   - jsonResponse: String - Stores the JSON response from the API
+ *   - wordsFromFile: WordsFromFile - Fallback word provider
+ *   - currentWord: String - The word being looked up
+ * 
+ * Major Classes/Functions:
+ *   - DictionairyAPI: Constructor that initializes the API client
+ *   - getDefinitions(String): Fetches and parses definitions for a given word
+ */
 package ca.additional.practice.javafx.worddefinitionsgame;
 
 import com.google.gson.JsonArray;
@@ -11,11 +25,35 @@ public class DictionairyAPI extends API {
     private WordsFromFile wordsFromFile = new WordsFromFile();
     private String currentWord;
 
-    //controller
+    /**
+     * Constructor that initializes the DictionairyAPI.
+     * 
+     * What it does: Calls the parent API constructor to set up base API functionality.
+     * 
+     * Inputs: None
+     * 
+     * Return value: N/A (constructor)
+     * 
+     * Side effects: Initializes parent class with API URLs
+     */
     DictionairyAPI() {
         super(); //initiate super class
     }
 
+    /**
+     * Fetches and parses definitions for a given word.
+     * 
+     * What it does: Makes an API request to get definitions, parses the JSON response,
+     *               and organizes definitions by part of speech. Requires at least 3 definitions
+     *               to be valid.
+     * 
+     * Inputs:
+     *   - word: String - The word to look up definitions for
+     * 
+     * Return value: Map<String, ArrayList<String>> - Map of parts of speech to definition lists
+     * 
+     * Side effects: Makes HTTP API call, prints definitions and errors to console
+     */
     public Map<String, ArrayList<String>> getDefinitions(String word) {
         System.out.println("searching for definitions");
         Map<String, ArrayList<String>> definitions = new HashMap<>();
