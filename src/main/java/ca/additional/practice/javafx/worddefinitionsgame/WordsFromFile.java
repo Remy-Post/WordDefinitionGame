@@ -17,14 +17,22 @@ public class WordsFromFile {
     }
 
     public String getWord(){
-        return ToGson().get(rand.nextInt(ToGson().size())).getAsString();
+
+        try {
+            return ToGson().getAsJsonArray()
+                    .asList().toArray()
+                    [rand.nextInt(1000)].toString();
+        } catch (Exception e) {
+            System.err.println("Error getting word from file");
+            return null;
+        }
     }
 
     private String getJson() {
         StringBuilder sb = new StringBuilder();
         try{
             //https://www.youtube.com/watch?v=ScUJx4aWRi0
-            InputStream is = getClass().getResourceAsStream("/ca/additional/practice/javafx/worddefinitionsgame/words.json");
+            InputStream is = getClass().getResourceAsStream("src/main/resources/ca/additional/practice/javafx/worddefinitionsgame/words.json");
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             String line;

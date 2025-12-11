@@ -17,6 +17,7 @@ public class DictionairyAPI extends API {
     }
 
     public Map<String, ArrayList<String>> getDefinitions(String word) {
+        System.out.println("searching for definitions");
         Map<String, ArrayList<String>> definitions = new HashMap<>();
         currentWord = word;
 
@@ -64,8 +65,7 @@ public class DictionairyAPI extends API {
             }
         } catch (IllegalArgumentException e) {
             System.out.println("Not enough definitions found for '" + word + "', trying another word...");
-            String newWord = wordsFromFile.getWord();
-            return getDefinitions(newWord);
+            return null;
         }
         catch (Exception e) {
             System.out.println("Error parsing data from API");

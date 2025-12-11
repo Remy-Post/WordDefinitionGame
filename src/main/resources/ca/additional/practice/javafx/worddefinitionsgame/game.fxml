@@ -14,7 +14,7 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <Button layoutX="545.0" layoutY="526.0" mnemonicParsing="false" text="Next" />
+      <Button layoutX="545.0" layoutY="526.0" mnemonicParsing="false" onAction="#NextWord" text="Next" />
       <ImageView fx:id="Image" fitHeight="84.0" fitWidth="200.0" layoutX="187.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="d1" layoutX="87.0" layoutY="329.0" prefHeight="40.0" prefWidth="441.0" style="-fx-background-color: gray;" text="Label" />
       <Label fx:id="d2" layoutX="85.0" layoutY="381.0" prefHeight="40.0" prefWidth="441.0" style="-fx-background-color: gray;" text="Label" />

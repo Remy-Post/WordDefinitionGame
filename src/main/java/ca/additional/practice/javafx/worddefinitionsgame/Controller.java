@@ -32,7 +32,7 @@ public class Controller {
 
     @FXML
     private void NextWord(ActionEvent event) {
-
+        newWord();
     }
 
     //endregion
@@ -52,6 +52,7 @@ public class Controller {
     private Model m;
     private WordAPI wordAPI;
     private DictionairyAPI dictionairyAPI;
+    private WordsFromFile wordsFromFile;
 
     //-------- Start of controller;
     @FXML
@@ -60,6 +61,7 @@ public class Controller {
         wordAPI = new WordAPI();
         dictionairyAPI = new DictionairyAPI();
         m = new Model();
+        wordsFromFile = new WordsFromFile();
 
         //Adds the definitions labels to the array list
         definitionsLabels.add(d1);
@@ -75,31 +77,8 @@ public class Controller {
         points.put("skipped", 0);
 
 
-        // Sets the word
-        String word = wordAPI.getWord();
-        m.setWord(word);
+        setUp();
 
-        //Sets the definitions
-        try {
-             Map<String, ArrayList<String>> definitions = dictionairyAPI.getDefinitions(m.getWord());
-             m.setDefinitions(definitions);
-             //m.setWord(dictionairyAPI.getCurrentWord()); // Update word in case it changed due to retry
-
-             if (m.getAllDefinitions().isEmpty()) throw new IndexOutOfBoundsException();
-        }
-        catch (IndexOutOfBoundsException e) {
-            System.out.println("Failed to fetch definitions due to the lack of them");
-        }
-        catch (Exception e) {
-            System.out.println("Failed to fetch definitions");
-        }
-        finally {
-            d1.setText(m.getDefinition());
-            d2.setText(m.getDefinition());
-            d3.setText(m.getDefinition());
-
-            wordLabel.setText(m.getWord());
-        }
 
         //Getting all panes within
         for ( Node node : root.getChildren())
@@ -107,6 +86,20 @@ public class Controller {
                 panes.add((Pane) node);
 
         game();
+    }
+
+    private void setUp(){
+        String word = wordAPI.getWord();
+        m.setWord(word);
+
+        //Sets the definitions
+        m.setDefinitions(dictionairyAPI.getDefinitions(word));
+
+        d1.setText(m.getDefinition());
+        d2.setText(m.getDefinition());
+        d3.setText(m.getDefinition());
+
+        wordLabel.setText(m.getWord());
     }
 
     // Game functions
@@ -119,6 +112,14 @@ public class Controller {
             l.setOnMouseReleased(this::setMouseReleased);
             System.out.println("Label added");
         }
+   }
+
+   public void newWord(){
+       System.out.println("Pressed");
+
+        setUp();
+
+       System.out.println("Label added");
    }
 
    //region Mouse Events
@@ -176,7 +177,9 @@ public class Controller {
        }
    }
    //endregion
+    private void handleNewWord(){
 
+    }
    //region Released helpers
    private void isCorrect(Label l){
        root.getChildren().remove(l);

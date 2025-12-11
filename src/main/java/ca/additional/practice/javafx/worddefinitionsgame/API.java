@@ -20,7 +20,7 @@ public class API {
     // [word] : https://api.dictionaryapi.dev/api/v2/entries/en_US/[word]
     API() {
         urls.put("word", "https://random-word-api.herokuapp.com/word?");
-        urls.put("definition", "https://api.dictionaryapi.dev/api/v2/entries/en_US/");
+        urls.put("definition", "https://api.dictionaryapi.dev/api/v2/entries/en/");
     }
     protected static final Gson gson = new Gson();
     /**
