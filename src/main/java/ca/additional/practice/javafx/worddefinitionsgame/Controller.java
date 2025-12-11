@@ -83,7 +83,7 @@ public class Controller {
         try {
              Map<String, ArrayList<String>> definitions = dictionairyAPI.getDefinitions(m.getWord());
              m.setDefinitions(definitions);
-             m.setWord(dictionairyAPI.getCurrentWord()); // Update word in case it changed due to retry
+             //m.setWord(dictionairyAPI.getCurrentWord()); // Update word in case it changed due to retry
 
              if (m.getAllDefinitions().isEmpty()) throw new IndexOutOfBoundsException();
         }
