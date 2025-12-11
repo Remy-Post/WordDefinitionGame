@@ -32,13 +32,7 @@ public class Controller {
 
 
     @FXML
-    private void NextWord(ActionEvent event) {
-        m = new Model(); //Reset the data
-        game(); //Run game
-
-        System.out.println("Next word");
-        System.out.println(definitionsLabels.size());
-    }
+    private void NextWord(ActionEvent event) { handleNewWord(); }
 
     //endregion
 
@@ -63,6 +57,8 @@ public class Controller {
     //-------- Start of controller;
     @FXML
     public void initialize() {
+        //region Variable iniatisation
+
         //Creating class instances
         wordAPI = new WordAPI();
         dictionairyAPI = new DictionairyAPI();
@@ -91,13 +87,31 @@ public class Controller {
             if (node instanceof Pane)
                 panes.add((Pane) node);
 
+        //endregion
+
+        setup();
         game();
+
     }
 
+    private void setup() {
+        wordLabel.setText(m.getWord());
+    }
+
+    public void handleNewWord(){
+        m = new Model(); //Reset the data
+        game(); //Run game
+
+        System.out.println("Next word");
+        System.out.println(definitionsLabels.size());
+    }
 
 
     // Game functions
    public void game(){
+
+        wordLabel.setText(m.getWord());
+
        System.out.println("Game");
        if (definitionsLabels.size() < 3) {
            Label l = new Label();
@@ -180,9 +194,7 @@ public class Controller {
        }
    }
    //endregion
-    private void handleNewWord(){
 
-    }
    //region Released helpers
    private void isCorrect(Label l){
        root.getChildren().remove(l);
@@ -191,7 +203,7 @@ public class Controller {
    }
 
    private void isIncorrect(Label l){
-       score -= points.get("wrong");
+       score += points.get("wrong"); //Value -50
        scoreLabel.setText("Score: " + score);
 
        //relocate the definitions to their original location
@@ -212,6 +224,8 @@ public class Controller {
                y >= pane.getLayoutY() && y<= pane.getLayoutY() + pane.getHeight()
        );
    }
+
+   //endregion
 
 
     //region 'is' Validation helpers functions
