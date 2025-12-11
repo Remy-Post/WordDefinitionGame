@@ -32,7 +32,8 @@ public class WordsFromFile {
         StringBuilder sb = new StringBuilder();
         try{
             //https://www.youtube.com/watch?v=ScUJx4aWRi0
-            InputStream is = getClass().getResourceAsStream("src/main/resources/ca/additional/practice/javafx/worddefinitionsgame/words.json");
+            // Since the file is in the same package (in resources), we just need the filename
+            InputStream is = getClass().getResourceAsStream("words.json");
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             String line;
