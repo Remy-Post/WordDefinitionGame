@@ -1,3 +1,26 @@
+<!--
+File: game.fxml
+Purpose: FXML layout definition for the Word Definition Game user interface
+
+This file defines the visual layout and structure of the game using JavaFX FXML markup.
+It creates an AnchorPane-based layout with labels for displaying the word and definitions,
+panes representing different parts of speech as drop zones, buttons for navigation, and
+a score display. The controller attribute links this view to the Controller class.
+
+Key UI Components:
+- root (AnchorPane): Main container with 600x565 dimensions
+- wordLabel: Large bold label displaying the current word (36pt font)
+- scoreLabel: Displays current score in 24pt font
+- d1, d2, d3: Three gray labels (441x40px) showing definitions that can be dragged
+- nounPane, verbPane, adjectivePane, adverbPane, prepositionPane, conjunctionPane: Drop zones (40x40px) for matching parts of speech
+- otherPane: Skip/other category drop zone (50x50px)
+- NextWord Button: Triggers loading of the next word
+- Static labels: Show part-of-speech category names above drop zones
+- Image: Placeholder ImageView (200x84px) for potential word illustrations
+
+Layout coordinates are specified using layoutX/layoutY for precise positioning.
+The controller is bound to ca.additional.practice.javafx.worddefinitionsgame.Controller.
+-->
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
