@@ -4,7 +4,8 @@ import java.util.*;
 
 public class Model {
     private String word;
-    private Map<String, ArrayList<String>> definitions;
+    private Map<String, ArrayList<String>> definitions = new HashMap<>();
+
     // Word Tpye : Difitionss
     private String wordType;
 

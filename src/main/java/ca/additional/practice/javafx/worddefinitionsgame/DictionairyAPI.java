@@ -8,7 +8,8 @@ import java.util.*;
 
 public class DictionairyAPI extends API {
     private String jsonResponse = null;
-    private Map<String, ArrayList<String>> definitions = new HashMap<>();
+    private WordsFromFile wordsFromFile = new WordsFromFile();
+    private String currentWord;
 
     //controller
     DictionairyAPI() {
@@ -16,7 +17,8 @@ public class DictionairyAPI extends API {
     }
 
     public Map<String, ArrayList<String>> getDefinitions(String word) {
-
+        Map<String, ArrayList<String>> definitions = new HashMap<>();
+        currentWord = word;
 
         //Use the resuable private method to fetch the data
         try {
@@ -25,11 +27,13 @@ public class DictionairyAPI extends API {
             );
         } catch (Exception e) {
             System.err.println("Error fetching data from API");
+
             return definitions; //AKA an empty arraylist
         }
 
 
         try {
+            int definitionsCount = 0;
             JsonArray jsonObj = JsonParser.parseString(jsonResponse).getAsJsonArray();
 
             //Drilling concept, of URLs
@@ -51,10 +55,19 @@ public class DictionairyAPI extends API {
                     JsonObject def = defs.get(k).getAsJsonObject();
 
                     String definition = def.get("definition").getAsString();
+                    definitionsCount++;
                     definitions.get(partOfSpeech).add(definition);
                 }
             }
-        } catch (Exception e) {
+            if (definitionsCount < 3) {
+                throw new IllegalArgumentException("Not enough definitions");
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("Not enough definitions found for '" + word + "', trying another word...");
+            String newWord = wordsFromFile.getWord();
+            return getDefinitions(newWord);
+        }
+        catch (Exception e) {
             System.out.println("Error parsing data from API");
             return definitions; //AKA an empty arraylist;
         }
