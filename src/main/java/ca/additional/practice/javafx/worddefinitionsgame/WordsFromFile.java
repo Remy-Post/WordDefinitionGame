@@ -30,19 +30,22 @@ public class WordsFromFile {
 
     private String getJson() {
         StringBuilder sb = new StringBuilder();
-        try{
-            //https://www.youtube.com/watch?v=ScUJx4aWRi0
-            // Since the file is in the same package (in resources), we just need the filename
-            InputStream is = getClass().getResourceAsStream("words.json");
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        try {
+            // UPDATED: Use absolute path with leading slash
+            InputStream is = getClass().getResourceAsStream("/ca/additional/practice/javafx/worddefinitionsgame/words.json");
 
+            if (is == null) {
+                throw new NullPointerException("Cannot find words.json file");
+            }
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
             String line;
             while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
             br.close();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
+            e.printStackTrace(); // This will help you see the specific error if it fails
             System.err.println("Error reading words.json");
         }
         return sb.toString();

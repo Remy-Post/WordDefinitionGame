@@ -130,13 +130,19 @@ public class Controller {
            definitionsLabels.add(l);
        }
 
-        for(Label l : definitionsLabels){
-            l.setText(m.getDefinition());
-            l.setOnMousePressed(this::setMousePressed);
-            l.setOnMouseDragged(this::setMouseDragged);
-            l.setOnMouseReleased(this::setMouseReleased);
-            System.out.println("Label added");
-        }
+       ArrayList<String> definitionsArray = m.getAllDefinitionsAsList();
+       int i = 0;
+       try{
+            for(Label l : definitionsLabels){
+                l.setText(definitionsArray.get(definitionsLabels.indexOf(l)));
+                l.setOnMousePressed(this::setMousePressed);
+                l.setOnMouseDragged(this::setMouseDragged);
+                l.setOnMouseReleased(this::setMouseReleased);
+                System.out.println("Label added");
+            }
+       }catch (Exception e){
+           System.err.println("Error adding label");
+       }
    }
 
    //region Mouse Events

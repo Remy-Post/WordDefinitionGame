@@ -18,15 +18,14 @@ public class Model {
 
     Model() {
         do{
-
             try {
                 newWord();
                 newDefinitions();
                 if (definitions.isEmpty()) throw new Exception();
             } catch (Exception e) {
-                word = String.valueOf(1);
+                word = null;
             }
-        }while (definitions.isEmpty() || "1".equals(word));
+        }while (definitions.isEmpty() || word == null);
     }
 
     private void newWord(){
@@ -58,6 +57,12 @@ public class Model {
 
     public Map<String, ArrayList<String>> getAllDefinitions() {
         return definitions;
+    }
+
+    public ArrayList<String> getAllDefinitionsAsList(){
+        //Map to arraylist
+        definitions.values().stream().flatMap(Collection::stream).toList().forEach(System.out::println);
+        return new ArrayList<>(definitions.values().stream().flatMap(Collection::stream).toList());
     }
 
     public String getDefinition() {
