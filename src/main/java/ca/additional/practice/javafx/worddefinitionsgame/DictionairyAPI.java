@@ -10,10 +10,33 @@ public class DictionairyAPI extends API {
     private String jsonResponse = null;
     private WordsFromFile wordsFromFile = new WordsFromFile();
     private String currentWord;
+    private int minDefinitionsCount = 3;
 
     //controller
     DictionairyAPI() {
         super(); //initiate super class
+    }
+
+    /**
+     * Gets the minimum number of definitions required for a word.
+     * @return the minimum definitions count
+     */
+    public int getMinDefinitionsCount() {
+        return minDefinitionsCount;
+    }
+
+    /**
+     * Sets the minimum number of definitions required for a word.
+     * If the word has fewer definitions than this value, a random word
+     * from words.json will be used instead.
+     * @param minDefinitionsCount the minimum definitions count to set (must be positive)
+     * @throws IllegalArgumentException if minDefinitionsCount is not positive
+     */
+    public void setMinDefinitionsCount(int minDefinitionsCount) {
+        if (minDefinitionsCount <= 0) {
+            throw new IllegalArgumentException("minDefinitionsCount must be positive");
+        }
+        this.minDefinitionsCount = minDefinitionsCount;
     }
 
     public Map<String, ArrayList<String>> getDefinitions(String word) {
@@ -59,7 +82,7 @@ public class DictionairyAPI extends API {
                     definitions.get(partOfSpeech).add(definition);
                 }
             }
-            if (definitionsCount < 3) {
+            if (definitionsCount < minDefinitionsCount) {
                 throw new IllegalArgumentException("Not enough definitions");
             }
         } catch (IllegalArgumentException e) {
