@@ -134,6 +134,7 @@ public class Controller {
        int i = 0;
        try{
             for(Label l : definitionsLabels){
+                if (definitionsArray.size() <= i) break;
                 l.setText(definitionsArray.get(definitionsLabels.indexOf(l)));
                 l.setOnMousePressed(this::setMousePressed);
                 l.setOnMouseDragged(this::setMouseDragged);
