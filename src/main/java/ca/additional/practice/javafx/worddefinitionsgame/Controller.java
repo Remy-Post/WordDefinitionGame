@@ -189,8 +189,8 @@ public class Controller {
            isSkipped(l);
        }
        else {
-           l.setLayoutX(orginalPosition[0]);
-           l.setLayoutY(orginalPosition[1]);
+           l.setLayoutX(labelOriginalPostion.get(l)[0]);
+           l.setLayoutY(labelOriginalPostion.get(l)[1]);
        }
    }
    //endregion

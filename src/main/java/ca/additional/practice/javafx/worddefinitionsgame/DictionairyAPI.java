@@ -66,7 +66,7 @@ public class DictionairyAPI extends API {
             }
         } catch (IllegalArgumentException e) {
             System.out.println("Not enough definitions found for '" + word + "', trying another word...");
-            return null;
+            return definitions;
         }
         catch (Exception e) {
             System.out.println("Error parsing data from API");
