@@ -56,6 +56,7 @@ public class DictionairyAPI extends API {
                     JsonObject def = defs.get(k).getAsJsonObject();
 
                     String definition = def.get("definition").getAsString();
+                    System.out.println(definition);
                     definitionsCount++;
                     definitions.get(partOfSpeech).add(definition);
                 }

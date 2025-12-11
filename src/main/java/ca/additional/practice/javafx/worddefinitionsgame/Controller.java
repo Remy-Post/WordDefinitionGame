@@ -7,9 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Controller {
 
@@ -19,6 +17,9 @@ public class Controller {
 
     @FXML
     private Label d1, d2, d3, wordLabel, scoreLabel;
+
+    @FXML
+    private Map<Label, double[]> labelOriginalPostion = new HashMap<>();
 
     @FXML
     private Pane nounPane, verbPane, adjectivePane, adverbPane, prepositionPane, conjunctionPane, otherPane;
@@ -32,7 +33,11 @@ public class Controller {
 
     @FXML
     private void NextWord(ActionEvent event) {
-        newWord();
+        m = new Model(); //Reset the data
+        game(); //Run game
+
+        System.out.println("Next word");
+        System.out.println(definitionsLabels.size());
     }
 
     //endregion
@@ -42,6 +47,7 @@ public class Controller {
 
     private int score = 0;
     private Map<String, Integer> points = new HashMap<>();
+    private Map<Integer, List<Integer>> log = new HashMap<>();
     private int[] AnswerLog = new int[2];
 
     //End of FXML variables
@@ -67,6 +73,9 @@ public class Controller {
         definitionsLabels.add(d1);
         definitionsLabels.add(d2);
         definitionsLabels.add(d3);
+        labelOriginalPostion.put(d1, new double[] {d1.getLayoutX(), d1.getLayoutY()});
+        labelOriginalPostion.put(d2, new double[] {d2.getLayoutX(), d2.getLayoutY()});
+        labelOriginalPostion.put(d3, new double[] {d3.getLayoutX(), d3.getLayoutY()});
 
         //Adding the points to the map
         points.put("correct", 100);
@@ -77,9 +86,6 @@ public class Controller {
         points.put("skipped", 0);
 
 
-        setUp();
-
-
         //Getting all panes within
         for ( Node node : root.getChildren())
             if (node instanceof Pane)
@@ -88,23 +94,28 @@ public class Controller {
         game();
     }
 
-    private void setUp(){
-        String word = wordAPI.getWord();
-        m.setWord(word);
 
-        //Sets the definitions
-        m.setDefinitions(dictionairyAPI.getDefinitions(word));
-
-        d1.setText(m.getDefinition());
-        d2.setText(m.getDefinition());
-        d3.setText(m.getDefinition());
-
-        wordLabel.setText(m.getWord());
-    }
 
     // Game functions
    public void game(){
        System.out.println("Game");
+       if (definitionsLabels.size() < 3) {
+           Label l = new Label();
+           if (definitionsLabels.size() == 2) {
+               l.setLayoutX(labelOriginalPostion.get(d3)[0]);
+               l.setLayoutX(labelOriginalPostion.get(d3)[1]);
+           }
+           else if (definitionsLabels.size() == 1) {
+               l.setLayoutX(labelOriginalPostion.get(d2)[0]);
+               l.setLayoutX(labelOriginalPostion.get(d2)[1]);
+           }
+           else {
+               l.setLayoutX(labelOriginalPostion.get(d1)[0]);
+               l.setLayoutX(labelOriginalPostion.get(d1)[1]);
+           }
+           definitionsLabels.add(l);
+       }
+
         for(Label l : definitionsLabels){
             l.setText(m.getDefinition());
             l.setOnMousePressed(this::setMousePressed);
@@ -112,14 +123,6 @@ public class Controller {
             l.setOnMouseReleased(this::setMouseReleased);
             System.out.println("Label added");
         }
-   }
-
-   public void newWord(){
-       System.out.println("Pressed");
-
-        setUp();
-
-       System.out.println("Label added");
    }
 
    //region Mouse Events
@@ -192,8 +195,8 @@ public class Controller {
        scoreLabel.setText("Score: " + score);
 
        //relocate the definitions to their original location
-       l.setLayoutX(orginalPosition[0]);
-       l.setLayoutY(orginalPosition[1]);
+       l.setLayoutX(labelOriginalPostion.get(l)[0]);
+       l.setLayoutY(labelOriginalPostion.get(l)[1]);
    }
 
    private void isSkipped(Label l){

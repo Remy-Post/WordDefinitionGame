@@ -11,6 +11,24 @@ public class Model {
 
     public Random random = new Random();
 
+    private DictionairyAPI dictionairyAPI = new DictionairyAPI();
+    private WordAPI wordAPI = new WordAPI();
+
+
+    Model() {
+        newWord();
+        newDefinitions();
+    }
+
+    private void newWord(){
+        word = wordAPI.getWord();
+        setWord(word);
+    }
+
+    private void newDefinitions(){
+        definitions = dictionairyAPI.getDefinitions(word);
+        setDefinitions(definitions);
+    }
 
     //region #Getters and Setters
     public String getWordType() {
@@ -58,9 +76,10 @@ public class Model {
     public void setDefinitions(Map<String, ArrayList<String>> definitions) {
         this.definitions = definitions;
     }
+
+    //endregion
 }
-    //endregion
 
 
 
-    //endregion
+
